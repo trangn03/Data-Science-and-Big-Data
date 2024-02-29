@@ -57,3 +57,39 @@ mpg %>% arrange(year) %>% summarise(mean(cty))
 mpg %>% group_by(year, manufacturer) %>% summarise(mean(cty)) %>% View()
 library(nycflights13)
 flights
+
+# slice, top_n
+
+mpg %>% View()
+mpg %>% slice(1:5)
+mpg %>% slice(seq(1,5))
+mpg %>% slice(seq(1,5, by=2))
+mpg %>% max(cty)
+mpg %>% summarise(max(cty))
+mpg %>% arrange(-cty) %>% slice(1)
+mpg %>% arrange(-cty) %>% slice(1:2)
+mpg %>% top_n(n=2, wt=cty)
+mpg %>% group_by(manufacturer) %>% summarise(meanCty=mean(cty)) %>% top_n(wt=meanCty, n=3)
+mpg %>% group_by(manufacturer) %>% summarise(meanCty=mean(cty)) %>% top_n(wt=meanCty, n=-3)
+mpg %>% group_by(manufacturer) %>% summarise(meanCty=mean(cty)) %>% top_n(wt=-meanCty, n=3)
+
+# joins
+band_members
+band_instruments
+band_members %>% inner_join(band_instruments)
+band_members %>% left_join(band_instruments)
+band_members %>% right_join(band_instruments)
+band_members %>% full_join(band_instruments)
+band_members
+band_instruments2
+band_members %>% inner_join(band_instruments2)
+band_members
+band_instruments2
+band_members %>% inner_join(band_instruments2, by=c(name="artist"))
+band_members_4rows
+band_instruments_4rows
+band_members_4rows %>% semi_join(band_instruments_4rows)
+band_members_4rows
+band_instruments_4rows
+band_members_4rows %>% anti_join(band_instruments_4rows)
+band_members %>% inner_join(band_instruments2, by=c(name="artist"))
